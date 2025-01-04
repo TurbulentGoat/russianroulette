@@ -21,7 +21,7 @@ def get_user_input(simulation_mode):
             'num_chambers': 6,
             'num_bullets': 1,
             'num_players': 2,
-            'continue_after_elimination': True,
+            'continue_after_elimination': False,
             'pulls_per_round': 1,
             'spin_cylinder': False
         }
@@ -202,7 +202,7 @@ def analyze_results(simulation_results, params):
     player_average_survival = {player: np.mean(rounds) for player, rounds in player_survival.items()}
     
     # Heatmap data normalization
-    bullet_heatmap_percentage = (bullet_heatmap / num_games) * 50
+    bullet_heatmap_percentage = (bullet_heatmap / num_games) * 100
     
     analysis = {
         'avg_rounds_without_firing': avg_rounds_without_firing,
