@@ -15,28 +15,28 @@ def get_user_input(simulation_mode):
     
     if simulation_mode == 'probability':
         print("Selected Mode: Law of Total Probability Simulation")
-        num_games = get_int("Number of games to simulate (1-1000): ", 1, 1000)
+        num_games = get_int("Number of games to simulate (1-100000000): ", 1, 100000000)
         return {
             'num_games': num_games,
             'num_chambers': 6,
             'num_bullets': 1,
             'num_players': 2,
-            'continue_after_elimination': False,
+            'continue_after_elimination': True,
             'pulls_per_round': 1,
             'spin_cylinder': False
         }
     else:
         print("Selected Mode: Custom Simulation")
-        num_games = get_int("Number of games to simulate (1-1000): ", 1, 1000)
-        num_chambers = get_int("Number of chambers in the gun (1-1000): ", 1, 1000)
+        num_games = get_int("Number of games to simulate (1-100000000): ", 1, 100000000)
+        num_chambers = get_int("Number of chambers in the gun (1-100000000): ", 1, 100000000)
         num_bullets = get_int(f"Number of bullets to load (1-{num_chambers}): ", 1, num_chambers)
-        num_players = get_int("Number of players to simulate (1-1000): ", 1, 1000)
+        num_players = get_int("Number of players to simulate (1-100000000): ", 1, 100000000)
         
         # Option to continue or end the game upon elimination
         continue_after_elimination = get_yes_no("Should the game continue after a player is eliminated? (yes/no): ")
         
         # Number of trigger pulls per player per round
-        pulls_per_round = get_int("How many times should each player pull the trigger per round? (1-100): ", 1, 100)
+        pulls_per_round = get_int("How many times should each player pull the trigger per round? (1-{num_bullets}): ", 1, num_bullets)
         
         # Option to spin the cylinder between rounds
         spin_cylinder = get_yes_no("Should the cylinder be spun between each round? (yes/no): ")
@@ -202,7 +202,7 @@ def analyze_results(simulation_results, params):
     player_average_survival = {player: np.mean(rounds) for player, rounds in player_survival.items()}
     
     # Heatmap data normalization
-    bullet_heatmap_percentage = (bullet_heatmap / num_games) * 100
+    bullet_heatmap_percentage = (bullet_heatmap / num_games) * 50
     
     analysis = {
         'avg_rounds_without_firing': avg_rounds_without_firing,
@@ -444,4 +444,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
