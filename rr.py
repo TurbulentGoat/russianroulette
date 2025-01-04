@@ -277,23 +277,6 @@ def generate_plots(analysis, params, simulation_results):
     plt.savefig('plots/max_consecutive_elims_box.png')
     plt.close()
     
-    # 5. Pie Chart of Game Outcomes (Enhanced)
-    # For simplicity, assuming two outcomes: early ended vs continued
-    early_end = sum(1 for res in simulation_results if res['max_consecutive_eliminations'] > 0)
-    continued = num_games - early_end
-    labels = ['Early Ended Games', 'Continued Games']
-    sizes = [early_end, continued]
-    colors = ['gold', 'lightcoral']
-    explode = (0.05, 0)  # Slightly explode the first slice
-    
-    plt.figure(figsize=(8,8))
-    plt.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, explode=explode, shadow=True, startangle=140)
-    plt.title('Game Outcomes', fontsize=16)
-    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    plt.tight_layout()
-    plt.savefig('plots/game_outcomes_pie.png')
-    plt.close()
-
 def generate_pdf_report(analysis, params, simulation_results):
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
@@ -324,7 +307,6 @@ def generate_pdf_report(analysis, params, simulation_results):
         ('player_survival_bar.png', 'Average Survival Rounds per Player'),
         ('bullet_position_distribution_bar.png', 'Bullet Position Distribution (%)'),
         ('max_consecutive_elims_box.png', 'Max Consecutive Eliminations per Game'),
-        ('game_outcomes_pie.png', 'Game Outcomes')
     ]
     
     for file, title in plot_files:
@@ -407,7 +389,7 @@ def generate_pdf_report(analysis, params, simulation_results):
         pdf.cell(survival_col_width, 10, f"{avg_survival:.2f}", border=1, align='C')
         pdf.ln()
     
-    # Add additional statistics if needed
+    # Add additional statistics here 
     
     # Save PDF
     if not os.path.exists('reports'):
